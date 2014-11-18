@@ -30,18 +30,18 @@ public class CountLuck {
     private static int getSteps(char[][] forest) {
         int[][] steps = new int[forest.length][forest[0].length];
         int[][] color = new int[forest.length][forest[0].length];
-        Queue<Point> queue = new LinkedList<Point>();
+        Queue<CLPoint> queue = new LinkedList<CLPoint>();
         for (int i = 0; i < forest.length; i++)
             for (int j = 0; j < forest[0].length; j++)
                 if (forest[i][j] == 'M') {
-                    queue.add(new Point(i, j));
+                    queue.add(new CLPoint(i, j));
                     steps[i][j] = 0;
                     color[i][j] = 2;
                     break;
                 }
         
         while (queue.size() > 0) {
-            Point p = queue.poll();
+        	CLPoint p = queue.poll();
             int x = p.x;
             int y = p.y;
             color[x][y] = 2;
@@ -59,35 +59,37 @@ public class CountLuck {
             if (count > 2)
                 count = 2;
             if (x > 0 && forest[x - 1][y] != 'X' && color[x - 1][y] == 0) {
-                queue.add(new Point(x - 1, y));
+                queue.add(new CLPoint(x - 1, y));
                 steps[x - 1][y] = steps[x][y] + count / 2;
                 color[x - 1][y] = 1;
             }
             if (x < forest.length - 1 && forest[x + 1][y] != 'X' && color[x + 1][y] == 0) {
-                queue.add(new Point(x + 1, y));
+                queue.add(new CLPoint(x + 1, y));
                 steps[x + 1][y] = steps[x][y] + count / 2;
                 color[x + 1][y] = 1;
             }
             if (y > 0 && forest[x][y - 1] != 'X' && color[x][y - 1] == 0) {
-                queue.add(new Point(x, y - 1));
+                queue.add(new CLPoint(x, y - 1));
                 steps[x][y - 1] = steps[x][y] + count / 2;
                 color[x][y - 1] = 1;
             }
             if (y < forest[0].length - 1 && forest[x][y + 1] != 'X' && color[x][y + 1] == 0) {
-                queue.add(new Point(x, y + 1));
+                queue.add(new CLPoint(x, y + 1));
                 steps[x][y + 1] = steps[x][y] + count / 2;
                 color[x][y + 1] = 1;
             }
         }
         return -1;
     }
+    
+    
 
 }
 
-class Point {
+class CLPoint {
     int x;
     int y;
-    Point(int x, int y) {
+    CLPoint(int x, int y) {
         this.x = x;
         this.y = y;
     }
