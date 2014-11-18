@@ -1,6 +1,5 @@
 package Accepted;
 
-import java.math.BigInteger;
 import java.util.Scanner;
 
 public class CounterGame {
